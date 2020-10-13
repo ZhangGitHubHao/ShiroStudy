@@ -19,15 +19,12 @@ class StudyshiroApplicationTests {
     }
 
     @Test
-    void testHelloworld() {
-        //1、获取 SecurityManager 工厂，此处使用 Ini 配置文件初始化 SecurityManager
-        Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
-        //2、得到 SecurityManager 实例 并绑定给 SecurityUtils
+    void testMultiCustomRealm() {
+        Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-multi-realm.ini");
         SecurityManager securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
-        //3、得到 Subject 及创建用户名/密码身份验证 Token（即用户身份/凭证）
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "1234");
+        UsernamePasswordToken token = new UsernamePasswordToken("wang","1234");
         try {
             //4、登录，即身份验证
             subject.login(token);
@@ -39,10 +36,4 @@ class StudyshiroApplicationTests {
         //6、退出
         subject.logout();
     }
-
-    void testCustomRealm() {
-        Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-realm.ini");
-
-    }
-
 }
