@@ -47,10 +47,10 @@
                     pattern="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n"/>
             <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
             <Filters>
-                <ThresholdFilter level="INFO" onMatch="ACCEPT"
-                                 onMismatch="NEUTRAL"/>
-                <ThresholdFilter level="WARN" onMatch="DENY"
-                                 onMismatch="DENY"/>
+                <!-- >= WARN级别的，拒绝！-->
+                <ThresholdFilter level="warn"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
             <Policies>
                 <!-- 基于时间的滚动策略，interval属性用来指定多久滚动一次，默认是1 hour -->
@@ -85,10 +85,10 @@
                                  filePattern="${log.dir}/%d{yyyy-MM}/${instance}-warn-%d{yyyy-MM-dd}-%i.log.gz"
                                  append="true">
             <Filters>
-                <ThresholdFilter level="INFO" onMatch="DENY"
-                                 onMismatch="NEUTRAL"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY"
-                                 onMismatch="DENY"/>
+                <!-- >= error级别的，拒绝！-->
+                <ThresholdFilter level="error"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
             <PatternLayout
                     pattern="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n"/>
@@ -105,10 +105,10 @@
                                  filePattern="${log.dir}/%d{yyyy-MM}/${instance}-error-%d{yyyy-MM-dd}-%i.log.gz"
                                  append="true">
             <Filters>
-                <ThresholdFilter level="WARN" onMatch="ACCEPT"
-                                 onMismatch="NEUTRAL"/>
-                <ThresholdFilter level="FATAL" onMatch="DENY"
-                                 onMismatch="DENY"/>
+                <!-- >= WARN级别的，拒绝！-->
+                <ThresholdFilter level="fatal"  onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
             <PatternLayout
                     pattern="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n"/>
